@@ -2,28 +2,26 @@ import {
   Injectable,
   OnApplicationShutdown,
   OnModuleDestroy,
-  OnModuleInit
-} from '@nestjs/common'
-import { Kafka, Producer, ProducerRecord } from 'kafkajs'
-import { KafkaSingleton } from './kafka.singleton'
+  OnModuleInit,
+} from "@nestjs/common";
+import { Kafka, Producer, ProducerRecord } from "kafkajs";
+import { KafkaInstance } from "./kafka.instance";
 
 @Injectable()
 export class ProducerService implements OnModuleInit, OnApplicationShutdown {
+  constructor(private kafka: KafkaInstance) {}
 
-  constructor (private kafka: KafkaSingleton) {
-  }
-
-  private readonly producer: Producer = this.kafka.get().producer()
+  private readonly producer: Producer = this.kafka.get().producer();
 
   async onModuleInit() {
-      await this.producer.connect()
+    await this.producer.connect();
   }
 
-  async produce (record: ProducerRecord) {
-    await this.producer.send(record)
+  async produce(record: ProducerRecord) {
+    await this.producer.send(record);
   }
 
-  async onApplicationShutdown () {
-    await this.producer.disconnect()
+  async onApplicationShutdown() {
+    await this.producer.disconnect();
   }
 }

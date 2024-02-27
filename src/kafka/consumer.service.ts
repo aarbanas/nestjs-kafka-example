@@ -6,11 +6,11 @@ import {
   ConsumerSubscribeTopics,
   Kafka,
 } from "kafkajs";
-import { KafkaSingleton } from "./kafka.singleton";
+import { KafkaInstance } from "./kafka.instance";
 
 @Injectable()
 export class ConsumerService implements OnApplicationShutdown {
-  constructor(private kafka: KafkaSingleton) {}
+  constructor(private kafka: KafkaInstance) {}
 
   private readonly consumers: Consumer[] = [];
 

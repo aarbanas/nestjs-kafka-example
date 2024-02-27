@@ -2,7 +2,7 @@ import { Kafka, logLevel } from "kafkajs";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
-export class KafkaSingleton {
+export class KafkaInstance {
   private readonly kafka = new Kafka({
     brokers: [process.env.KAFKA_BROKER],
     ssl: true,
