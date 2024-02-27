@@ -1,11 +1,17 @@
-import { Kafka } from "kafkajs";
+import { Kafka, logLevel } from "kafkajs";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class KafkaSingleton {
   private readonly kafka = new Kafka({
-    clientId: "my-app",
-    brokers: [process.env.KAFKA_URL],
+    brokers: [process.env.KAFKA_BROKER],
+    ssl: true,
+    sasl: {
+      mechanism: "scram-sha-256",
+      username: process.env.KAFKA_USERNAME,
+      password: process.env.KAFKA_PASSWORD,
+    },
+    logLevel: logLevel.ERROR,
   });
 
   get() {
