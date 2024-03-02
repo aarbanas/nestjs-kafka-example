@@ -1,11 +1,11 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
-import EventSource from "eventsource";
+import * as EventSource from "eventsource";
 import { ProducerService } from "../kafka/producer.service";
-import { raw } from "express";
 
 @Injectable()
 export class WikimediaService implements OnModuleInit {
   constructor(private readonly kafkaProducer: ProducerService) {}
+
   private es = new EventSource(
     "https://stream.wikimedia.org/v2/stream/recentchange",
   );
