@@ -1,7 +1,10 @@
-import { Module } from '@nestjs/common';
-import { WikimediaService } from './wikimedia.service';
+import { Module } from "@nestjs/common";
+import { WikimediaService } from "./wikimedia.service";
+import { KafkaModule } from "../kafka/kafka.module";
 
 @Module({
-  providers: [WikimediaService]
+  imports: [KafkaModule],
+  providers: [WikimediaService],
+  exports: [WikimediaService],
 })
 export class WikimediaModule {}
