@@ -1,8 +1,8 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
-import { ConsumerService } from "./kafka/consumer.service";
+import { ConsumerService } from "../services/consumer.service";
 
 @Injectable()
-export class TestConsumer implements OnModuleInit {
+export class DemoNodeConsumer implements OnModuleInit {
   constructor(private consumerService: ConsumerService) {}
   async onModuleInit() {
     await this.consumerService.consume(

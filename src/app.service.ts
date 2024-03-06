@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ProducerService } from "./kafka/producer.service";
+import { ProducerService } from "./kafka/services/producer.service";
 
 @Injectable()
 export class AppService {

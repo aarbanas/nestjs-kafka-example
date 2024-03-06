@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
 import * as EventSource from "eventsource";
-import { ProducerService } from "../kafka/producer.service";
+import { ProducerService } from "../kafka/services/producer.service";
 import { CompressionTypes } from "kafkajs";
 
 @Injectable()
@@ -13,14 +13,14 @@ export class WikimediaService implements OnModuleInit {
 
   onModuleInit() {
     this.es.onmessage = async (evt) => {
-      const payload = JSON.parse(evt.data);
-      console.log("Received Data: ", payload);
-
       await this.kafkaProducer.produce({
         topic: "wikimedia.recentchanges",
         messages: [{ value: evt.data }],
-        compression: CompressionTypes.Snappy,
       });
     };
+
+    setTimeout(() => {
+      this.es.close();
+    }, 5 * 1000);
   }
 }

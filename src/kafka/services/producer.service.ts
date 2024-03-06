@@ -5,7 +5,7 @@ import {
   OnModuleInit,
 } from "@nestjs/common";
 import { Kafka, Producer, ProducerRecord } from "kafkajs";
-import { KafkaInstance } from "./kafka.instance";
+import { KafkaInstance } from "../kafka.instance";
 
 @Injectable()
 export class ProducerService implements OnModuleInit, OnApplicationShutdown {
