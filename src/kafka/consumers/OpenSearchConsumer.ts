@@ -9,6 +9,11 @@ export class OpenSearchConsumer implements OnModuleInit {
     private readonly consumerService: ConsumerService,
   ) {}
 
+  private extractId(data: any): string {
+    const dataObj = JSON.parse(data);
+    return dataObj.meta.id;
+  }
+
   async onModuleInit() {
     await this.openSearchService.createIndex("wikimedia");
 
@@ -17,6 +22,7 @@ export class OpenSearchConsumer implements OnModuleInit {
       {
         eachMessage: async ({ topic, partition, message }) => {
           await this.openSearchService.addDocument(
+            this.extractId(message.value.toString()),
             "wikimedia",
             message.value.toString(),
           );

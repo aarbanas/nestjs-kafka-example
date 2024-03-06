@@ -26,9 +26,10 @@ export class SearchService {
     }
   }
 
-  async addDocument(indexName: string, data: any) {
+  async addDocument(id: string, indexName: string, data: any) {
     try {
       const res = await this.openSearchService.index({
+        id,
         index: indexName,
         body: data,
         refresh: true,
